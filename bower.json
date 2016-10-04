@@ -1,0 +1,9 @@
+{
+    "name": "enigma-web",
+    "private": true,
+    "dependencies": {
+        "angular": "latest",
+        "angular-material": "latest",
+        "angular-ui-router": "latest"
+    }
+}

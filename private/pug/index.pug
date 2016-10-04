@@ -1,0 +1,114 @@
+doctype html
+
+html(ng-app="spgill.EnigmaWeb")
+
+    head
+        //- All the meta tags
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="description" content="")
+        meta(name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no")
+        meta(name="mobile-web-app-capable" content="yes")
+        //- meta(name="theme-color" content="#039BE5")
+
+        //- Link icon and stylesheets
+        //- link(rel="icon" href="/image/icon_master.png")
+        link(rel="stylesheet" href="/css/bower.css")
+        link(rel="stylesheet" href="/css/index.css")
+        link(rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons")
+
+    body(
+        ng-controller="MainController as main"
+        ng-cloak
+        md-theme="{{ main.bitmode ? 'byte' : 'normal' }}"
+
+        layout="column"
+        )
+
+        //- Jumbostron with switch for mode
+        div.jumbo(
+            layout="column"
+            layout-align="center center"
+            layout-padding
+            md-colors="{background: 'primary'}"
+            )
+
+            div(style="width: 1024px;")
+                a(href="http://spgill.me")
+                    img(src="/image/spg.svg" style="height: 50px;")
+
+            h1.md-display-4 {{ main.bitmode ? 'Bitnigma' : 'Enigma' }} Machine
+
+            div(layout="row" layout-align="center center")
+                span Classic Simulation
+                md-switch(ng-model="main.bitmode" style="margin-left: 8px;")
+                span Byte Simulation
+
+        //- Controls for normal mode
+        md-content(ng-if="!main.bitmode" layout-padding flex)
+            div.inner(
+                style="width: 1024px; margin-left: auto; margin-right: auto;"
+                layout="column"
+                layout-align="start stretch"
+                )
+
+                section
+                    h2.nomargin
+                        span(md-colors="{color: 'primary'}") 1
+                        span . Choose three rotors
+
+                    div(layout="row" layout-align="center center")
+                        md-input-container(ng-repeat="i in [0, 1, 2]" flex)
+                            label Rotor {{ $index + 1 }}
+                            md-select(ng-model="main.classic_rotors[$index]" ng-disabled="main.classic_busy")
+                                md-option(
+                                    ng-repeat="rotor in main.classic_rotor_list"
+                                    value="{{ rotor[1] }}"
+                                    ) {{ rotor[0] }}
+
+                section
+                    h2.nomargin
+                        span(md-colors="{color: 'primary'}") 2
+                        span . Choose a reflector
+
+                    div(layout="row" layout-align="start center")
+                        md-input-container(flex)
+                            label Reflector
+                            md-select(ng-model="main.classic_reflector" ng-disabled="main.classic_busy")
+                                md-option(
+                                    ng-repeat="ref in main.classic_reflector_list"
+                                    value="{{ ref[1] }}"
+                                    ) {{ ref[0] }}
+
+                section
+                    h2.nomargin
+                        span(md-colors="{color: 'primary'}") 3
+                        span . Enter text to encrypt/decrypt
+
+                    md-input-container.md-block
+                        label Text
+                        textarea(ng-model="main.classic_text" ng-disabled="main.classic_busy" md-select-on-focus)
+
+
+                md-button.md-block.md-raised.md-primary(
+                    ng-click="main.classic_go()"
+                    ng-disabled="main.classic_busy || !main.classic_ready()"
+                    style="align-self: stretch;"
+                    ) Go!
+
+
+
+        //- Controls for bit mode
+        md-content(ng-if="main.bitmode" layout-padding flex)
+            div.inner(
+                style="width: 1024px; margin-left: auto; margin-right: auto;"
+                layout="column"
+                layout-align="center center"
+                )
+                h2.md-display-2
+                    span WIP
+                    span(md-colors="{color: 'primary'}") ...
+                    span  check back later!
+
+        script(src="/js/bower.js")
+        script(src="/js/index.js")
