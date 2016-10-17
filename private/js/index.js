@@ -115,10 +115,16 @@ app.controller('MainController', function($http) {
         ["Railway Enigma - Reflector", "rail"],
         ["Swiss Enigma K - Reflector", "swissk"]
     ]
+    this.classic_settings_list = [
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+    ]
 
     // Classic mode form vars
+    this.classic_expanded = true
     this.classic_busy = false
     this.classic_rotors = [null, null, null]
+    this.classic_settings = ['A', 'A', 'A']
     this.classic_reflector = null
     this.classic_text = ''
 
@@ -133,7 +139,7 @@ app.controller('MainController', function($http) {
     this.classic_go = () => {
         this.classic_busy = true
         let request = $http.post('/api/enigma', {
-            'rotors': this.classic_rotors,
+            'rotors': [0, 1, 2].map((i) => `${this.classic_rotors[i]}:${this.classic_settings[i]}`),
             'reflector': this.classic_reflector,
             'text': this.classic_text
         })
