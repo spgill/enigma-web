@@ -31,7 +31,6 @@ app.controller('MainController', function($http) {
 
     // Enumerate the rotors and reflectors
     this.classic_rotor_list = [
-        ["BASE REFLECTOR","base"],
         ["Enigma D - Rotor I", "d1"],
         ["Enigma D - Rotor II", "d2"],
         ["Enigma D - Rotor III", "d3"],
