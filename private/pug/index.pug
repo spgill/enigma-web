@@ -21,94 +21,94 @@ html(ng-app="spgill.EnigmaWeb")
         ng-controller="MainController as main"
         ng-cloak
         md-theme="{{ main.bitmode ? 'byte' : 'normal' }}"
-
-        layout="column"
         )
+        //- Scrollable content
+        md-content(layout="column")
 
-        //- Jumbostron with switch for mode
-        div.jumbo(
-            layout="column"
-            layout-align="center center"
-            layout-padding
-            md-colors="{background: 'primary'}"
-            )
-
-            div(style="width: 1024px;")
-                a(href="http://spgill.me")
-                    img(src="/image/spg.svg" style="height: 50px;")
-
-            h1.md-display-4 {{ main.bitmode ? 'Bitnigma' : 'Enigma' }} Machine
-
-            div(layout="row" layout-align="center center")
-                span Classic Simulation
-                md-switch(ng-model="main.bitmode" style="margin-left: 8px;")
-                span Byte Simulation
-
-        //- Controls for normal mode
-        md-content(ng-if="!main.bitmode" layout-padding flex)
-            div.inner(
-                style="width: 1024px; margin-left: auto; margin-right: auto;"
-                layout="column"
-                layout-align="start stretch"
-                )
-
-                section
-                    h2.nomargin
-                        span(md-colors="{color: 'primary'}") 1
-                        span . Choose three rotors
-
-                    div(layout="row" layout-align="center center")
-                        md-input-container(ng-repeat="i in [0, 1, 2]" flex)
-                            label Rotor {{ $index + 1 }}
-                            md-select(ng-model="main.classic_rotors[$index]" ng-disabled="main.classic_busy")
-                                md-option(
-                                    ng-repeat="rotor in main.classic_rotor_list"
-                                    value="{{ rotor[1] }}"
-                                    ) {{ rotor[0] }}
-
-                section
-                    h2.nomargin
-                        span(md-colors="{color: 'primary'}") 2
-                        span . Choose a reflector
-
-                    div(layout="row" layout-align="start center")
-                        md-input-container(flex)
-                            label Reflector
-                            md-select(ng-model="main.classic_reflector" ng-disabled="main.classic_busy")
-                                md-option(
-                                    ng-repeat="ref in main.classic_reflector_list"
-                                    value="{{ ref[1] }}"
-                                    ) {{ ref[0] }}
-
-                section
-                    h2.nomargin
-                        span(md-colors="{color: 'primary'}") 3
-                        span . Enter text to encrypt/decrypt
-
-                    md-input-container.md-block
-                        label Text
-                        textarea(ng-model="main.classic_text" ng-disabled="main.classic_busy" md-select-on-focus)
-
-
-                md-button.md-block.md-raised.md-primary(
-                    ng-click="main.classic_go()"
-                    ng-disabled="main.classic_busy || !main.classic_ready()"
-                    style="align-self: stretch;"
-                    ) Go!
-
-
-
-        //- Controls for bit mode
-        md-content(ng-if="main.bitmode" layout-padding flex)
-            div.inner(
-                style="width: 1024px; margin-left: auto; margin-right: auto;"
+            //- Jumbostron with switch for mode
+            div.jumbo(
                 layout="column"
                 layout-align="center center"
+                layout-padding
+                md-colors="{background: 'primary'}"
                 )
-                h2.md-display-2
-                    span WIP
-                    span(md-colors="{color: 'primary'}") &nbsp;...&nbsp;
-                    span check back later!
+
+                div(style="width: 1024px;")
+                    a(href="http://spgill.me")
+                        img(src="/image/spg.svg" style="height: 50px;")
+
+                h1.md-display-4 {{ main.bitmode ? 'Bitnigma' : 'Enigma' }} Machine
+
+                div(layout="row" layout-align="center center")
+                    span Classic Simulation
+                    md-switch(ng-model="main.bitmode" style="margin-left: 8px;")
+                    span Byte Simulation
+
+            //- Controls for normal mode
+            div(ng-if="!main.bitmode" layout-padding flex)
+                div.inner(
+                    style="width: 1024px; margin-left: auto; margin-right: auto;"
+                    layout="column"
+                    layout-align="start stretch"
+                    )
+
+                    section
+                        h2.nomargin
+                            span(md-colors="{color: 'primary'}") 1
+                            span . Choose three rotors
+
+                        div(layout="row" layout-align="center center")
+                            md-input-container(ng-repeat="i in [0, 1, 2]" flex)
+                                label Rotor {{ $index + 1 }}
+                                md-select(ng-model="main.classic_rotors[$index]" ng-disabled="main.classic_busy")
+                                    md-option(
+                                        ng-repeat="rotor in main.classic_rotor_list"
+                                        value="{{ rotor[1] }}"
+                                        ) {{ rotor[0] }}
+
+                    section
+                        h2.nomargin
+                            span(md-colors="{color: 'primary'}") 2
+                            span . Choose a reflector
+
+                        div(layout="row" layout-align="start center")
+                            md-input-container(flex)
+                                label Reflector
+                                md-select(ng-model="main.classic_reflector" ng-disabled="main.classic_busy")
+                                    md-option(
+                                        ng-repeat="ref in main.classic_reflector_list"
+                                        value="{{ ref[1] }}"
+                                        ) {{ ref[0] }}
+
+                    section
+                        h2.nomargin
+                            span(md-colors="{color: 'primary'}") 3
+                            span . Enter text to encrypt/decrypt
+
+                        md-input-container.md-block
+                            label Text
+                            textarea(ng-model="main.classic_text" ng-disabled="main.classic_busy" md-select-on-focus)
+
+
+                    md-button.md-block.md-raised.md-primary(
+                        ng-click="main.classic_go()"
+                        ng-disabled="main.classic_busy || !main.classic_ready()"
+                        style="align-self: stretch;"
+                        ) Go!
+
+
+
+            //- Controls for bit mode
+            div(ng-if="main.bitmode" layout-padding flex)
+                div.inner(
+                    style="width: 1024px; margin-left: auto; margin-right: auto;"
+                    layout="column"
+                    layout-align="center center"
+                    )
+                    h2.md-display-2
+                        span WIP
+                        span(md-colors="{color: 'primary'}") &nbsp;...&nbsp;
+                        span check back later!
 
         script(src="/js/bower.js")
         script(src="/js/index.js")
