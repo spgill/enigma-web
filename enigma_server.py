@@ -23,6 +23,7 @@ def api_enigma():
     data = flask.request.get_json()
 
     machine = enigma.machine.Machine(
+        plugboardStack=data['plugboard'],
         rotorStack=data['rotors'],
         reflector=data['reflector']
     )

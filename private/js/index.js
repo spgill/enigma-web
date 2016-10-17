@@ -115,7 +115,7 @@ app.controller('MainController', function($http) {
         ["Railway Enigma - Reflector", "rail"],
         ["Swiss Enigma K - Reflector", "swissk"]
     ]
-    this.classic_settings_list = [
+    this.classic_abet = [
         "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
         "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
     ]
@@ -123,6 +123,8 @@ app.controller('MainController', function($http) {
     // Classic mode form vars
     this.classic_expanded = true
     this.classic_busy = false
+    this.classic_plugs = []
+    this.classic_plugs_selected = []
     this.classic_rotors = [null, null, null]
     this.classic_settings = ['A', 'A', 'A']
     this.classic_reflector = null
@@ -136,9 +138,35 @@ app.controller('MainController', function($http) {
         return this.classic_reflector != null && this.classic_text != ''
     }
 
+    this.classic_plug_click = (letter) => {
+        if (this.classic_plugs_selected.length == 1) {
+            if (letter == this.classic_plugs_selected[0]) {
+                this.classic_plugs_selected.pop()
+                return
+            }
+        }
+
+        this.classic_plugs_selected.push(letter)
+
+        if (this.classic_plugs_selected.length == 2) {
+            this.classic_plugs.push(this.classic_plugs_selected.join(''))
+            this.classic_plugs_selected = []
+        }
+    }
+
+    this.classic_plug_disabled = (letter) => {
+        for (pair of this.classic_plugs) {
+            if (pair.indexOf(letter) >= 0) {
+                return true
+            }
+        }
+        return false
+    }
+
     this.classic_go = () => {
         this.classic_busy = true
         let request = $http.post('/api/enigma', {
+            'plugboard': this.classic_plugs,
             'rotors': [0, 1, 2].map((i) => `${this.classic_rotors[i]}:${this.classic_settings[i]}`),
             'reflector': this.classic_reflector,
             'text': this.classic_text

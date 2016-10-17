@@ -73,7 +73,7 @@ html(ng-app="spgill.EnigmaWeb")
                                 md-input-container
                                     md-select(ng-model="main.classic_settings[$index]" ng-disabled="main.classic_busy")
                                         md-option(
-                                            ng-repeat="letter in main.classic_settings_list"
+                                            ng-repeat="letter in main.classic_abet"
                                             value="{{ letter }}"
                                             ) {{ letter }}
                                 span.spacer(ng-if="!$last" md-colors="{color: 'primary'}") &#149;
@@ -95,6 +95,25 @@ html(ng-app="spgill.EnigmaWeb")
                     section
                         h2.nomargin
                             span(md-colors="{color: 'primary'}") 3
+                            span . Configure the plugboard
+
+                        md-chips(
+                            ng-model="main.classic_plugs"
+                            readonly="true"
+                            md-removable="true"
+                            )
+
+                        div(style="margin-bottom: 18px;" layout="row" layout-align="center center" layout-wrap)
+                            md-button.md-fab(
+                                ng-class="{'md-hue-3': main.classic_plugs_selected.indexOf(letter) >= 0}"
+                                ng-click="main.classic_plug_click(letter)"
+                                ng-disabled="main.classic_plug_disabled(letter)"
+                                ng-repeat="letter in main.classic_abet"
+                                ) {{ letter }}
+
+                    section
+                        h2.nomargin
+                            span(md-colors="{color: 'primary'}") 4
                             span . Enter text to encrypt / decrypt
 
                         md-input-container.md-block(style="margin-bottom: 0;")
@@ -148,10 +167,7 @@ html(ng-app="spgill.EnigmaWeb")
                             I wouldn't expect it be 100% accurate to the original
                             mechanism. With this simulation, you can mix and match different rotor
                             and reflector wirings from across a wide range of different
-                            enigma machines created through the 1900s. The backend
-                            technically supports plugboard configuration, but I haven't
-                            programmed a visual interface yet, so that functionality will
-                            be missing for now.
+                            enigma machines created through the 1900s.
 
                         p(layout="row" layout-align="center center")
                             md-button.md-primary(href="https://github.com/spgill/enigma" target="_blank") View the source on Github
