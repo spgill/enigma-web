@@ -1,3 +1,4 @@
 flask
 tornado
 git+git://github.com/spgill/enigma
+bitnigma
