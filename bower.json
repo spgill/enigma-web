@@ -3,6 +3,7 @@
     "private": true,
     "dependencies": {
         "angular": "latest",
+        "angular-cookies": "latest",
         "angular-material": "latest",
         "angular-ui-router": "latest"
     }

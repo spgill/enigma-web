@@ -51,6 +51,33 @@ html(ng-app="spgill.EnigmaWeb")
                     layout="column"
                     layout-align="start stretch"
                     )
+
+                    md-whiteframe.md-whiteframe-3dp.md-content(
+                        md-colors="{'background-color': 'accent-A100'}"
+
+                        layout="row"
+                        layout-align="space-around center"
+                        )
+                        md-button(
+                            ng-click="main.classic_state_save()"
+                            )
+                            md-icon(style="padding-right: 4px;") save
+                            span Save State
+
+                        md-button(
+                            ng-click="main.classic_state_load()"
+                            ng-disabled="!main.classic_state_available()"
+                            )
+                            md-icon(style="padding-right: 4px;") restore
+                            span(ng-if="main.classic_state_available()") Restore State
+                            span(ng-if="!main.classic_state_available()") No Saved State
+
+                        md-button(
+                            ng-click="main.classic_state_reset()"
+                            )
+                            md-icon(style="padding-right: 4px;") warning
+                            span Reset State
+
                     section
                         h2.nomargin
                             span(md-colors="{color: 'primary'}") 1

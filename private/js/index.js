@@ -1,5 +1,5 @@
 // Establish module
-app = angular.module('spgill.EnigmaWeb', ['ngMaterial'])
+app = angular.module('spgill.EnigmaWeb', ['ngCookies', 'ngMaterial'])
 
 
 // Configure the theme(s)
@@ -24,7 +24,7 @@ app.config(function($mdThemingProvider) {
 
 
 // Define main controller (this app is so small, I'll only need one).
-app.controller('MainController', function($http) {
+app.controller('MainController', function($http, $cookies) {
     // Mode flag. false - enigma, true - bitnigma
     this.bitmode = false
     this.testing = '1 2 3'
@@ -185,6 +185,34 @@ app.controller('MainController', function($http) {
                 alert('Unknown error encountered. Try reloading the page.')
             }
         )
+    }
+
+    this.classic_state_save = () => {
+        $cookies.putObject('classic_state', [
+            this.classic_plugs,
+            this.classic_rotors,
+            this.classic_settings,
+            this.classic_reflector
+        ])
+    }
+
+    this.classic_state_available = () => {
+        return $cookies.get('classic_state')
+    }
+
+    this.classic_state_load = () => {
+        let state = $cookies.getObject('classic_state')
+        this.classic_plugs = state[0]
+        this.classic_rotors = state[1]
+        this.classic_settings = state[2]
+        this.classic_reflector = state[3]
+    }
+
+    this.classic_state_reset = () => {
+        this.classic_plugs = []
+        this.classic_rotors = [null, null, null]
+        this.classic_settings = ['A', 'A', 'A']
+        this.classic_reflector = null
     }
 
 })
