@@ -1,5 +1,5 @@
 // Establish module
-app = angular.module('spgill.EnigmaWeb', ['ngCookies', 'ngMaterial'])
+let app = angular.module('spgill.EnigmaWeb', ['ngCookies', 'ngMaterial'])
 
 
 // Configure the theme(s)
@@ -132,7 +132,7 @@ app.controller('MainController', function($http, $cookies) {
 
     // Classic mode methods
     this.classic_ready = () => {
-        for (rotor of this.classic_rotors) {
+        for (let rotor of this.classic_rotors) {
             if (rotor == null) { return false; }
         }
         return this.classic_reflector != null && this.classic_text != ''
@@ -155,7 +155,7 @@ app.controller('MainController', function($http, $cookies) {
     }
 
     this.classic_plug_disabled = (letter) => {
-        for (pair of this.classic_plugs) {
+        for (let pair of this.classic_plugs) {
             if (pair.indexOf(letter) >= 0) {
                 return true
             }
