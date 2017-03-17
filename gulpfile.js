@@ -1,6 +1,6 @@
 /**
 
-Samuel's Master Build-script V 2.0
+Samuel's Master Build-script V 2.1
 
 **/
 
@@ -46,16 +46,6 @@ const statics = [
     'html',
     'json'
 ]
-const babili_config = {
-    'presets': ['babili'],
-    'plugins': [
-        'babel-plugin-minify-mangle-names',
-        'babel-plugin-minify-simplify',
-        'babel-plugin-transform-merge-sibling-variables',
-        'babel-plugin-transform-minify-booleans',
-        'babel-plugin-transform-undefined-to-void'
-    ]
-}
 
 
 /* Globals for BrowserSync and electron-connect */
@@ -64,6 +54,11 @@ var electronFile = null
 var electronFileHash = null
 var electronSession = null
 var conditionalUpdateMode = null
+
+
+const babel_config = {
+    'presets': ['es2015']
+}
 
 
 /* Source globs for gulp tasks */
@@ -218,9 +213,9 @@ for (let task_name in tasks_js) {
             .pipe(politePlumber())
             .pipe(gulp_sourcemaps.init())
             .pipe(tasks_js[task_name]())
+            .pipe(gulp_babel(babel_config))
             .pipe(gulp_ng_annotate())
-            // .pipe(gulp_uglify())
-            .pipe(gulp_babel(babili_config))
+            .pipe(gulp_uglify())
             .pipe(gulp_sourcemaps.write(`../map`))
             .pipe(gulp.dest(globs.task_js.dest))
             .pipe(conditionalUpdate())

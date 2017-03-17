@@ -9,13 +9,7 @@
 
     "dependencies": {
         "babel-core": "*",
-        "babel-preset-babili": "*",
         "babel-preset-es2015": "*",
-        "babel-plugin-minify-mangle-names": "*",
-        "babel-plugin-minify-simplify": "*",
-        "babel-plugin-transform-merge-sibling-variables": "*",
-        "babel-plugin-transform-minify-booleans": "*",
-        "babel-plugin-transform-undefined-to-void": "*",
 
         "bower": "*",
         "browser-sync": "*",
