@@ -128,6 +128,7 @@ app.controller('MainController', function($http, $cookies) {
     this.classic_rotors = [null, null, null]
     this.classic_settings = ['A', 'A', 'A']
     this.classic_reflector = null
+    this.classic_pentagraph = false
     this.classic_text = ''
 
     // Classic mode methods
@@ -169,6 +170,7 @@ app.controller('MainController', function($http, $cookies) {
             'plugboard': this.classic_plugs,
             'rotors': [0, 1, 2].map((i) => `${this.classic_rotors[i]}:${this.classic_settings[i]}`),
             'reflector': this.classic_reflector,
+            'pentagraph': this.classic_pentagraph,
             'text': this.classic_text
         })
 

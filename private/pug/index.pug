@@ -139,9 +139,13 @@ html(ng-app="spgill.EnigmaWeb")
                                 ) {{ letter }}
 
                     section
-                        h2.nomargin
+                        h2.nomargin(layout="row" layout-align="start center")
                             span(md-colors="{color: 'primary'}") 4
                             span . Enter text to encrypt / decrypt
+                            
+                            span(flex)
+                            
+                            md-switch.md-primary(ng-model="main.classic_pentagraph") Pentagraph Output
 
                         md-input-container.md-block(style="margin-bottom: 0;")
                             label Something secret...

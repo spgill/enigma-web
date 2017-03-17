@@ -25,7 +25,9 @@ def api_enigma():
     machine = enigma.machine.Machine(
         plugboardStack=data['plugboard'],
         rotorStack=data['rotors'],
-        reflector=data['reflector']
+        reflector=data['reflector'],
+        outputMode=enigma.machine.OUTPUT.PENTAGRAPH if data['pentagraph'] else
+        enigma.machine.OUTPUT.CONTINUOUS
     )
 
     return machine.translateChunk(data['text'].encode()).decode()
