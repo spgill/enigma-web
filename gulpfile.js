@@ -1,6 +1,6 @@
 /**
 
-Samuel's Master Build-script V 2.1
+Samuel's Master Build-script V 2.2
 
 **/
 
@@ -215,7 +215,7 @@ for (let task_name in tasks_js) {
             .pipe(tasks_js[task_name]())
             .pipe(gulp_babel(babel_config))
             .pipe(gulp_ng_annotate())
-            .pipe(gulp_uglify())
+            // .pipe(gulp_uglify())
             .pipe(gulp_sourcemaps.write(`../map`))
             .pipe(gulp.dest(globs.task_js.dest))
             .pipe(conditionalUpdate())
@@ -233,10 +233,10 @@ for (let task_name in tasks_js) {
                             .pipe(politePlumber())
                             .pipe(gulp_sourcemaps.init())
                             .pipe(tasks_js[task_name]())
+                            .pipe(gulp_babel(babel_config))
                             .pipe(gulp_ng_annotate())
                             .pipe(gulp_concat(obj_name + '.js'))
-                            // .pipe(gulp_uglify())
-                            .pipe(gulp_babel(babili_config))
+                            .pipe(gulp_uglify())
                             .pipe(gulp_sourcemaps.write(`../map`))
                             .pipe(gulp.dest(globs.task_js.dest))
                             .pipe(conditionalUpdate())
