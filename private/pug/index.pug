@@ -20,7 +20,7 @@ html(ng-app="spgill.EnigmaWeb")
     body(
         ng-controller="MainController as main"
         ng-cloak
-        md-theme="{{ main.bitmode ? 'byte' : 'normal' }}"
+        md-theme="{{ main.bytemode ? 'byte' : 'normal' }}"
         )
         //- Scrollable content
         md-content(layout="column")
@@ -37,15 +37,15 @@ html(ng-app="spgill.EnigmaWeb")
                     a(href="http://spgill.me")
                         img(src="/image/spg.svg" style="height: 50px;")
 
-                h1.md-display-4 {{ main.bitmode ? 'Bitnigma' : 'Enigma' }} Machine
+                h1.md-display-4 {{ main.bytemode ? 'Bitnigma' : 'Enigma' }} Machine
 
                 div(layout="row" layout-align="center center")
                     span Classic Simulation
-                    md-switch(ng-model="main.bitmode" style="margin-left: 8px;")
+                    md-switch(ng-model="main.bytemode" style="margin-left: 8px;")
                     span Byte Simulation
 
             //- Controls for normal mode
-            div(ng-if="!main.bitmode" layout-padding flex)
+            div(ng-if="!main.bytemode" layout-padding flex)
                 div.inner(
                     style="width: 1024px; margin-left: auto; margin-right: auto;"
                     layout="column"
@@ -209,17 +209,120 @@ html(ng-app="spgill.EnigmaWeb")
 
 
 
-            //- Controls for bit mode
-            div(ng-if="main.bitmode" layout-padding flex)
+            //- Controls for byte mode
+            div(ng-if="main.bytemode" layout-padding flex)
                 div.inner(
                     style="width: 1024px; margin-left: auto; margin-right: auto;"
                     layout="column"
-                    layout-align="center center"
+                    layout-align="start stretch"
                     )
-                    h2.md-display-2
-                        span WIP
-                        span(md-colors="{color: 'primary'}") &nbsp;...&nbsp;
-                        span check back later!
+
+                    md-whiteframe.md-whiteframe-3dp.md-content(
+                        md-colors="{'background-color': 'accent-A100'}"
+
+                        layout="row"
+                        layout-align="space-around center"
+                        )
+                        md-button(
+                            ng-click="main.byte_state_save()"
+                            )
+                            md-icon(style="padding-right: 4px;") save
+                            span Save State
+
+                        md-button(
+                            ng-click="main.byte_state_load()"
+                            ng-disabled="!main.byte_state_available()"
+                            )
+                            md-icon(style="padding-right: 4px;") restore
+                            span(ng-if="main.byte_state_available()") Restore State
+                            span(ng-if="!main.byte_state_available()") No Saved State
+
+                        md-button(
+                            ng-click="main.byte_state_reset()"
+                            )
+                            md-icon(style="padding-right: 4px;") warning
+                            span Reset State
+
+                    section
+                        h2.nomargin
+                            span(md-colors="{color: 'primary'}") 1
+                            span . Choose three rotors and their initial settings
+
+                        div(layout="row" layout-align="center center")
+                            div(
+                                ng-repeat="i in [0, 1, 2]"
+                                flex
+                                layout="row"
+                                layout-align="start center"
+                                )
+                                md-input-container(flex)
+                                    label Rotor {{ $index + 1 }}
+                                    md-select(ng-model="main.byte_rotors[$index]" ng-disabled="main.byte_busy")
+                                        md-option(
+                                            ng-repeat="rotor in main.byte_rotor_list"
+                                            value="{{ rotor[1] }}"
+                                            ) {{ rotor[0] }}
+                                md-input-container
+                                    md-select(ng-model="main.byte_settings[$index]" ng-disabled="main.byte_busy")
+                                        md-option(
+                                            ng-repeat="letter in main.byte_abet"
+                                            value="{{ letter }}"
+                                            ) {{ letter }}
+                                span.spacer(ng-if="!$last" md-colors="{color: 'primary'}") &#149;
+
+                    section
+                        h2.nomargin
+                            span(md-colors="{color: 'primary'}") 2
+                            span . Choose a reflector
+
+                        div(layout="row" layout-align="start center")
+                            md-input-container(flex)
+                                label Reflector
+                                md-select(ng-model="main.byte_reflector" ng-disabled="main.byte_busy")
+                                    md-option(
+                                        ng-repeat="ref in main.byte_reflector_list"
+                                        value="{{ ref[1] }}"
+                                        ) {{ ref[0] }}
+
+                    section
+                        h2.nomargin
+                            span(md-colors="{color: 'primary'}") 3
+                            span . Configure the plugboard
+
+                        md-chips(
+                            ng-model="main.byte_plugs"
+                            readonly="true"
+                            md-removable="true"
+                            )
+                        
+                        md-content(style="height: 220px;")
+                            div(style="margin-bottom: 18px;" layout="row" layout-align="center center" layout-wrap)
+                                md-button.md-fab(
+                                    ng-class="{'md-hue-3': main.byte_plugs_selected.indexOf(letter) >= 0}"
+                                    ng-click="main.byte_plug_click(letter)"
+                                    ng-disabled="main.byte_plug_disabled(letter)"
+                                    ng-repeat="letter in main.byte_abet"
+                                    ) {{ letter }}
+
+                    section
+                        h2.nomargin(layout="row" layout-align="start center")
+                            span(md-colors="{color: 'primary'}") 4
+                            span . Enter text to encrypt / decrypt
+                            
+                            span(flex)
+                            
+                            md-switch.md-primary(ng-model="main.classic_pentagraph") Pentagraph Output
+
+                        md-input-container.md-block(style="margin-bottom: 0;")
+                            label Something secret...
+                            textarea(ng-model="main.classic_text" ng-disabled="main.classic_busy" md-select-on-focus)
+
+
+                    md-button.md-block.md-raised.md-primary(
+                        ng-click="main.classic_go()"
+                        ng-disabled="main.classic_busy || !main.classic_ready()"
+                        style="align-self: stretch; margin-bottom: 48px;"
+                        ) Go!
 
         script(src="/js/bower.js")
         script(src="/js/index.js")

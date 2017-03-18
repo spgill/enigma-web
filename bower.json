@@ -5,6 +5,7 @@
         "angular": "latest",
         "angular-cookies": "latest",
         "angular-material": "latest",
-        "angular-ui-router": "latest"
+        "angular-ui-router": "latest",
+        "angular-file-upload": "latest"
     }
 }
