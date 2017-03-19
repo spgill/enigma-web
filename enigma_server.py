@@ -31,3 +31,24 @@ def api_enigma():
     )
 
     return machine.translateChunk(data['text'].encode()).decode()
+
+
+# Bitnigma API
+@app.route('/api/bitnigma', methods=['POST'])
+def api_bitnigma():
+    data = flask.request.get_json()
+    print(flask.request.form)
+
+    print('DATA', data)
+
+    return ''
+
+    # machine = enigma.machine.Machine(
+    #     plugboardStack=data['plugboard'],
+    #     rotorStack=data['rotors'],
+    #     reflector=data['reflector'],
+    #     outputMode=enigma.machine.OUTPUT.PENTAGRAPH if data['pentagraph'] else
+    #     enigma.machine.OUTPUT.CONTINUOUS
+    # )
+    #
+    # return machine.translateChunk(data['text'].encode()).decode()

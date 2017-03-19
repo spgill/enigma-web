@@ -151,12 +151,14 @@ html(ng-app="spgill.EnigmaWeb")
                             label Something secret...
                             textarea(ng-model="main.classic_text" ng-disabled="main.classic_busy" md-select-on-focus)
 
-
-                    md-button.md-block.md-raised.md-primary(
-                        ng-click="main.classic_go()"
-                        ng-disabled="main.classic_busy || !main.classic_ready()"
-                        style="align-self: stretch; margin-bottom: 48px;"
-                        ) Go!
+                    
+                    section(layout="row")
+                        md-button.md-block.md-raised.md-primary(
+                            ng-click="main.classic_go()"
+                            ng-disabled="main.classic_busy || !main.classic_ready()"
+                            style="margin-bottom: 48px;"
+                            flex
+                            ) Go!
 
                     section
                         h2.nomargin
@@ -315,12 +317,13 @@ html(ng-app="spgill.EnigmaWeb")
                             md-input-container.skinny
                                 input(disabled ng-model="main.byte_uploader.queue[0].file.name")
 
-
-                    md-button.md-block.md-raised.md-primary(
-                        ng-click="main.classic_go()"
-                        ng-disabled="main.byte_busy || !main.byte_ready()"
-                        style="align-self: stretch; margin-bottom: 48px;"
-                        ) Go!
+                    section(layout="row")
+                        md-button.md-block.md-raised.md-primary(
+                            ng-click="main.byte_go()"
+                            ng-disabled="main.byte_busy || !main.byte_ready()"
+                            style="margin-bottom: 48px;"
+                            flex
+                            ) Go!
 
         script(src="/js/bower.js")
         script(src="/js/index.js")
