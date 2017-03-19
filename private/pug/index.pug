@@ -305,22 +305,20 @@ html(ng-app="spgill.EnigmaWeb")
                                     ) {{ letter }}
 
                     section
-                        h2.nomargin(layout="row" layout-align="start center")
+                        h2.nomargin
                             span(md-colors="{color: 'primary'}") 4
-                            span . Enter text to encrypt / decrypt
-                            
-                            span(flex)
-                            
-                            md-switch.md-primary(ng-model="main.classic_pentagraph") Pentagraph Output
+                            span . Select file to encrypt / decrypt
 
-                        md-input-container.md-block(style="margin-bottom: 0;")
-                            label Something secret...
-                            textarea(ng-model="main.classic_text" ng-disabled="main.classic_busy" md-select-on-focus)
+                        div(layout="row" layout-align="start center")
+                            input.ng-hide#byte-file-input(type="file" nv-file-select uploader="main.byte_uploader")
+                            label.md-button.md-raised.md-primary(md-ink-ripple md-colors="{background: 'accent'}" for="byte-file-input") Browse
+                            md-input-container.skinny
+                                input(disabled ng-model="main.byte_uploader.queue[0].file.name")
 
 
                     md-button.md-block.md-raised.md-primary(
                         ng-click="main.classic_go()"
-                        ng-disabled="main.classic_busy || !main.classic_ready()"
+                        ng-disabled="main.byte_busy || !main.byte_ready()"
                         style="align-self: stretch; margin-bottom: 48px;"
                         ) Go!
 

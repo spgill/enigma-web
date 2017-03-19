@@ -24,7 +24,7 @@ app.config(function($mdThemingProvider) {
 
 
 // Define main controller (this app is so small, I'll only need one).
-app.controller('MainController', function($http, $cookies) {
+app.controller('MainController', function($http, $cookies, FileUploader) {
     // Mode flag. false - enigma, true - bitnigma
     this.bytemode = true
     this.testing = '1 2 3'
@@ -242,13 +242,14 @@ app.controller('MainController', function($http, $cookies) {
     this.byte_rotors = [null, null, null]
     this.byte_settings = ['0x00', '0x00', '0x00']
     this.byte_reflector = null
+    this.byte_uploader = new FileUploader()
 
     // Byte mode methods
     this.byte_ready = () => {
         for (let rotor of this.byte_rotors) {
             if (rotor == null) { return false; }
         }
-        return this.byte_reflector != null && this.byte_text != ''
+        return this.byte_reflector != null && this.byte_uploader.queue.length > 0
     }
 
     this.byte_plug_click = (letter) => {
