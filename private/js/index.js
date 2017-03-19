@@ -24,7 +24,7 @@ app.config(function($mdThemingProvider) {
 
 
 // Define main controller (this app is so small, I'll only need one).
-app.controller('MainController', function($http, $cookies, FileUploader) {
+app.controller('MainController', function($timeout, $http, $cookies, FileUploader) {
     // Mode flag. false - enigma, true - bitnigma
     this.bytemode = true
     this.testing = '1 2 3'
@@ -263,7 +263,7 @@ app.controller('MainController', function($http, $cookies, FileUploader) {
         this.byte_plugs_selected.push(letter)
 
         if (this.byte_plugs_selected.length == 2) {
-            this.byte_plugs.push(this.byte_plugs_selected.join(' - '))
+            this.byte_plugs.push(this.byte_plugs_selected.join(':'))
             this.byte_plugs_selected = []
         }
     }
@@ -278,13 +278,19 @@ app.controller('MainController', function($http, $cookies, FileUploader) {
     }
 
     this.byte_go = () => {
-        this.byte_busy = true
+        // this.byte_busy = true
 
         this.byte_uploader.queue[0].url = '/api/bitnigma'
-        this.byte_uploader.queue[0].formData = {
-            'plugboard': this.byte_plugs,
-            'rotors': [0, 1, 2].map((i) => `${this.byte_rotors[i]}:${this.byte_settings[i]}`),
-            'reflector': this.byte_reflector
+        this.byte_uploader.queue[0].headers = {
+            Payload: JSON.stringify({
+                'plugboard': this.byte_plugs,
+                'rotors': [0, 1, 2].map((i) => `${this.byte_rotors[i]}:${this.byte_settings[i]}`),
+                'reflector': this.byte_reflector
+            })
+        }
+
+        this.byte_uploader.queue[0].onSuccess = (response) => {
+            this.byte_download = `/api/bitnigma/queue/${response}`
         }
 
         this.byte_uploader.queue[0].upload()
@@ -341,6 +347,15 @@ app.controller('MainController', function($http, $cookies, FileUploader) {
         this.byte_rotors = [null, null, null]
         this.byte_settings = ['0x00', '0x00', '0x00']
         this.byte_reflector = null
+    }
+
+    this.byte_download_click = () => {
+        $timeout(
+            () => {
+                this.byte_download = ''
+            },
+            1000
+        )
     }
 
 })

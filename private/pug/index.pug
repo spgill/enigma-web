@@ -320,10 +320,19 @@ html(ng-app="spgill.EnigmaWeb")
                     section(layout="row")
                         md-button.md-block.md-raised.md-primary(
                             ng-click="main.byte_go()"
-                            ng-disabled="main.byte_busy || !main.byte_ready()"
-                            style="margin-bottom: 48px;"
+                            ng-disabled="main.byte_busy || !main.byte_ready() || main.byte_download"
                             flex
                             ) Go!
+                    
+                    section(layout="row")
+                        md-button.md-block.md-raised.md-primary(
+                            ng-click="main.byte_download_click()"
+                            ng-disabled="!main.byte_download"
+                            ng-href="{{ main.byte_download }}"
+                            target="_blank"
+                            style="margin-bottom: 48px;"
+                            flex
+                            ) Download Result
 
         script(src="/js/bower.js")
         script(src="/js/index.js")
