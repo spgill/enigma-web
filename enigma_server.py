@@ -10,7 +10,7 @@ import bitnigma.machine
 # Initialize the app
 app = flask.Flask(__name__, static_folder='public', static_url_path='')
 app.config['DEBUG'] = os.environ.get('DEBUG', False) == 'True'
-app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # 2 megabytes, fyi
+app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5 megabytes, fyi
 
 
 # Download queue
