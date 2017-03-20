@@ -26,7 +26,7 @@ app.config(function($mdThemingProvider) {
 // Define main controller (this app is so small, I'll only need one).
 app.controller('MainController', function($window, $timeout, $http, $cookies, FileUploader) {
     // Mode flag. false - enigma, true - bitnigma
-    this.bytemode = true
+    this.bytemode = false
     this.testing = '1 2 3'
 
     // Enumerate the rotors and reflectors
