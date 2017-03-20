@@ -50,12 +50,13 @@ def api_bitnigma():
         reflector=data['reflector']
     )
 
-    out = machine.translateStream(stream_in=flask.request.files['file'])
+    stream_out = machine.translateStream(stream_in=flask.request.files['file'])
     tag = uuid.uuid4().hex
 
+    stream_out.seek(0)
     app.download_queue[tag] = [
-        flask.request.files['file'].filename,
-        out
+        stream_out,
+        flask.request.files['file'].filename
     ]
 
     return tag
@@ -77,9 +78,9 @@ def api_bitnigma_queue(tag):
     if tag in app.download_queue:
         dl = app.download_queue.pop(tag)
         return flask.send_file(
-            dl[1],
+            dl[0],
             as_attachment=True,
-            attachment_filename=dl[0]
+            attachment_filename=dl[1]
         )
     else:
         flask.abort(404)
