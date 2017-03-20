@@ -281,7 +281,7 @@ app.controller('MainController', function($window, $timeout, $http, $cookies, Fi
     }
 
     this.byte_go = () => {
-        // this.byte_busy = true
+        this.byte_busy = true
 
         this.byte_uploader.queue[0].url = '/api/bitnigma'
         this.byte_uploader.queue[0].removeAfterUpload = true
@@ -295,6 +295,7 @@ app.controller('MainController', function($window, $timeout, $http, $cookies, Fi
 
         this.byte_uploader.queue[0].onSuccess = (response) => {
             $window.open(`/api/bitnigma/queue/${response}`, '_blank')
+            this.byte_busy = false
         }
 
         this.byte_uploader.queue[0].upload()
