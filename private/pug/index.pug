@@ -313,9 +313,16 @@ html(ng-app="spgill.EnigmaWeb")
 
                         div(layout="row" layout-align="start center")
                             input.ng-hide#byte-file-input(type="file" nv-file-select uploader="main.byte_uploader")
-                            label.md-button.md-raised.md-primary(md-ink-ripple md-colors="{background: 'accent'}" for="byte-file-input") Browse
-                            md-input-container.skinny
+                            label.md-button.md-raised.md-primary(
+                                md-ink-ripple md-colors="{background: 'accent'}"
+                                for="byte-file-input"
+                            ) Browse
+                            
+                            md-input-container.skinny(flex)
                                 input(disabled ng-model="main.byte_uploader.queue[0].file.name")
+                            
+                            md-button.md-icon-button.md-warn(ng-click="main.byte_uploader_clear()")
+                                md-icon close
 
                     section(layout="row")
                         md-button.md-block.md-raised.md-primary(

@@ -244,6 +244,9 @@ app.controller('MainController', function($timeout, $http, $cookies, FileUploade
     this.byte_reflector = null
     this.byte_uploader = new FileUploader()
 
+    // Configure uploader
+    this.byte_uploader.queueLimit = 1
+
     // Byte mode methods
     this.byte_ready = () => {
         for (let rotor of this.byte_rotors) {
@@ -281,6 +284,7 @@ app.controller('MainController', function($timeout, $http, $cookies, FileUploade
         // this.byte_busy = true
 
         this.byte_uploader.queue[0].url = '/api/bitnigma'
+        this.byte_uploader.queue[0].removeAfterUpload = true
         this.byte_uploader.queue[0].headers = {
             Payload: JSON.stringify({
                 'plugboard': this.byte_plugs,
@@ -347,6 +351,12 @@ app.controller('MainController', function($timeout, $http, $cookies, FileUploade
         this.byte_rotors = [null, null, null]
         this.byte_settings = ['0x00', '0x00', '0x00']
         this.byte_reflector = null
+    }
+
+    this.byte_uploader_clear = () => {
+        for (let entry of this.byte_uploader.queue) {
+            entry.remove()
+        }
     }
 
     this.byte_download_click = () => {
