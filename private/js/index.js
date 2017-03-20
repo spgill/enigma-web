@@ -240,7 +240,7 @@ app.controller('MainController', function($window, $timeout, $http, $cookies, Fi
     this.byte_plugs = []
     this.byte_plugs_selected = []
     this.byte_rotors = [null, null, null]
-    this.byte_settings = ['0x00', '0x00', '0x00']
+    this.byte_settings = ['000', '000', '000']
     this.byte_reflector = null
     this.byte_uploader = new FileUploader()
 
@@ -349,7 +349,7 @@ app.controller('MainController', function($window, $timeout, $http, $cookies, Fi
     this.byte_state_reset = () => {
         this.byte_plugs = []
         this.byte_rotors = [null, null, null]
-        this.byte_settings = ['0x00', '0x00', '0x00']
+        this.byte_settings = ['000', '000', '000']
         this.byte_reflector = null
     }
 
