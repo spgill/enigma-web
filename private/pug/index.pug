@@ -309,7 +309,7 @@ html(ng-app="spgill.EnigmaWeb")
                     section
                         h2.nomargin
                             span(md-colors="{color: 'primary'}") 4
-                            span . Select file to encrypt / decrypt
+                            span . Select file to encrypt / decrypt <span class="md-caption">(5MB limit)</span>
 
                         div(layout="row" layout-align="start center")
                             input.ng-hide#byte-file-input(type="file" nv-file-select uploader="main.byte_uploader")
