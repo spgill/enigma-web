@@ -359,13 +359,4 @@ app.controller('MainController', function($window, $timeout, $http, $cookies, Fi
         }
     }
 
-    this.byte_download_click = () => {
-        $timeout(
-            () => {
-                this.byte_download = ''
-            },
-            1000
-        )
-    }
-
 })
