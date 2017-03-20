@@ -24,7 +24,7 @@ app.config(function($mdThemingProvider) {
 
 
 // Define main controller (this app is so small, I'll only need one).
-app.controller('MainController', function($timeout, $http, $cookies, FileUploader) {
+app.controller('MainController', function($window, $timeout, $http, $cookies, FileUploader) {
     // Mode flag. false - enigma, true - bitnigma
     this.bytemode = true
     this.testing = '1 2 3'
@@ -294,7 +294,7 @@ app.controller('MainController', function($timeout, $http, $cookies, FileUploade
         }
 
         this.byte_uploader.queue[0].onSuccess = (response) => {
-            this.byte_download = `/api/bitnigma/queue/${response}`
+            $window.open(`/api/bitnigma/queue/${response}`, '_blank')
         }
 
         this.byte_uploader.queue[0].upload()
