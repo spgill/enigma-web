@@ -298,6 +298,11 @@ app.controller('MainController', function($window, $timeout, $http, $cookies, Fi
             this.byte_busy = false
         }
 
+        this.byte_uploader.queue[0].onError = (response) => {
+            alert('Encountered unknown error. Check Developer Console.')
+            this.byte_busy = false
+        }
+
         this.byte_uploader.queue[0].upload()
 
 
